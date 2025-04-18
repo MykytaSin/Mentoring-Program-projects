@@ -2928,11 +2928,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\C# Intermidiate + practice\\Diagrams\\Mentoring-Program-projects\\DAL\\DAL.csproj",
+      "projectUniqueName": "C:\\C# Intermidiate + practice\\ProjectsForLearning\\Mentoring-Program-projects\\DAL\\DAL.csproj",
       "projectName": "DAL",
-      "projectPath": "C:\\C# Intermidiate + practice\\Diagrams\\Mentoring-Program-projects\\DAL\\DAL.csproj",
+      "projectPath": "C:\\C# Intermidiate + practice\\ProjectsForLearning\\Mentoring-Program-projects\\DAL\\DAL.csproj",
       "packagesPath": "C:\\Users\\mykyta_siniavin\\.nuget\\packages\\",
-      "outputPath": "C:\\C# Intermidiate + practice\\Diagrams\\Mentoring-Program-projects\\DAL\\obj\\",
+      "outputPath": "C:\\C# Intermidiate + practice\\ProjectsForLearning\\Mentoring-Program-projects\\DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
