@@ -66,3 +66,5 @@ EventApi/obj/Debug/net8.0/staticwebassets.references.upToDateCheck.txt
 EventApi/obj/Debug/net8.0/staticwebassets/msbuild.build.EventApi.props
 EventApi/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.EventApi.props
 EventApi/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.EventApi.props
+*.cache
+*.v2
