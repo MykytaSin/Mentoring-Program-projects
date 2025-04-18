@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "QEkgi6a2mto=",
+  "dgSpecHash": "SUB7kTkKikk=",
   "success": true,
-  "projectFilePath": "C:\\C# Intermidiate + practice\\Diagrams\\Mentoring-Program-projects\\DAL\\DAL.csproj",
+  "projectFilePath": "C:\\C# Intermidiate + practice\\ProjectsForLearning\\Mentoring-Program-projects\\DAL\\DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mykyta_siniavin\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\mykyta_siniavin\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",

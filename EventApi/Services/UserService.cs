@@ -64,10 +64,36 @@ namespace EventApi.Services
                 Console.WriteLine("something go wrong");
                 return false;
             }
-            
-            
 
+        }
 
+        public async Task<bool> SetManagerStatusForUser(string userEmail)
+        {
+            var userRepo = _unitOfWork.Repository<User>();
+            var userRoleRepo = _unitOfWork.Repository<Usersrole>();
+
+            var userRole = await userRoleRepo.GetByConditionAsync(x => x.Rolename == "Manager");
+            if (userRole == null)
+            {
+                using var _ = userRoleRepo.AddAsync(new Usersrole()
+                {
+                    Rolename = "Manager"
+                });
+                userRole = await userRoleRepo.GetByConditionAsync(x => x.Rolename == "Manager");
+            }
+
+            try
+            {
+                var dbUser = await userRepo.GetByConditionAsync(x => string.Equals(userEmail, x.Email));
+                dbUser.Roleid = userRole.Roleid;
+                await userRepo.UpdateAsync(dbUser);
+                return true;
+            }
+            catch
+            {
+                Console.WriteLine("something go wrong");
+                return false;
+            }
         }
     }
 }
