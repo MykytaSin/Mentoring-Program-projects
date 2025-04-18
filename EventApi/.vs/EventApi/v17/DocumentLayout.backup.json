@@ -1,0 +1,175 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\EventApi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{78B4EFD5-376B-427B-966E-E68974270581}|..\\DAL\\DAL.csproj|c:\\c# intermidiate \u002B practice\\diagrams\\mentoring-program-projects\\dal\\unitofwork\\unitofwork .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78B4EFD5-376B-427B-966E-E68974270581}|..\\DAL\\DAL.csproj|c:\\c# intermidiate \u002B practice\\diagrams\\mentoring-program-projects\\dal\\repository\\genericasyncrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78B4EFD5-376B-427B-966E-E68974270581}|..\\DAL\\DAL.csproj|c:\\c# intermidiate \u002B practice\\diagrams\\mentoring-program-projects\\dal\\interfaces\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78B4EFD5-376B-427B-966E-E68974270581}|..\\DAL\\DAL.csproj|c:\\c# intermidiate \u002B practice\\diagrams\\mentoring-program-projects\\dal\\interfaces\\iasyncrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78B4EFD5-376B-427B-966E-E68974270581}|..\\DAL\\DAL.csproj|c:\\c# intermidiate \u002B practice\\diagrams\\mentoring-program-projects\\dal\\dal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D49926C7-7EB3-4F59-9365-42BF089EB7E2}|EventApi.csproj|c:\\c# intermidiate \u002B practice\\diagrams\\mentoring-program-projects\\eventapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D49926C7-7EB3-4F59-9365-42BF089EB7E2}|EventApi.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D49926C7-7EB3-4F59-9365-42BF089EB7E2}|EventApi.csproj|c:\\c# intermidiate \u002B practice\\diagrams\\mentoring-program-projects\\eventapi\\diconfigurator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D49926C7-7EB3-4F59-9365-42BF089EB7E2}|EventApi.csproj|solutionrelative:diconfigurator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{78B4EFD5-376B-427B-966E-E68974270581}|..\\DAL\\DAL.csproj|c:\\c# intermidiate \u002B practice\\diagrams\\mentoring-program-projects\\dal\\domainmodels\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D49926C7-7EB3-4F59-9365-42BF089EB7E2}|EventApi.csproj|c:\\c# intermidiate \u002B practice\\diagrams\\mentoring-program-projects\\eventapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D49926C7-7EB3-4F59-9365-42BF089EB7E2}|EventApi.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UnitOfWork .cs",
+              "DocumentMoniker": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\DAL\\UnitOfWork\\UnitOfWork .cs",
+              "RelativeDocumentMoniker": "..\\DAL\\UnitOfWork\\UnitOfWork .cs",
+              "ToolTip": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\DAL\\UnitOfWork\\UnitOfWork .cs",
+              "RelativeToolTip": "..\\DAL\\UnitOfWork\\UnitOfWork .cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBoAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T21:07:11.913Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IUnitOfWork.cs",
+              "DocumentMoniker": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\DAL\\Interfaces\\IUnitOfWork.cs",
+              "RelativeDocumentMoniker": "..\\DAL\\Interfaces\\IUnitOfWork.cs",
+              "ToolTip": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\DAL\\Interfaces\\IUnitOfWork.cs",
+              "RelativeToolTip": "..\\DAL\\Interfaces\\IUnitOfWork.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-17T21:04:48.994Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GenericAsyncRepository.cs",
+              "DocumentMoniker": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\DAL\\Repository\\GenericAsyncRepository.cs",
+              "RelativeDocumentMoniker": "..\\DAL\\Repository\\GenericAsyncRepository.cs",
+              "ToolTip": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\DAL\\Repository\\GenericAsyncRepository.cs",
+              "RelativeToolTip": "..\\DAL\\Repository\\GenericAsyncRepository.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-16T18:41:02.636Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IAsyncRepository.cs",
+              "DocumentMoniker": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\DAL\\Interfaces\\IAsyncRepository.cs",
+              "RelativeDocumentMoniker": "..\\DAL\\Interfaces\\IAsyncRepository.cs",
+              "ToolTip": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\DAL\\Interfaces\\IAsyncRepository.cs",
+              "RelativeToolTip": "..\\DAL\\Interfaces\\IAsyncRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-16T18:36:24.699Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DIConfigurator.cs",
+              "DocumentMoniker": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\EventApi\\DIConfigurator.cs",
+              "RelativeDocumentMoniker": "DIConfigurator.cs",
+              "ToolTip": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\EventApi\\DIConfigurator.cs",
+              "RelativeToolTip": "DIConfigurator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-16T13:53:00.488Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AppDBContext.cs",
+              "DocumentMoniker": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\DAL\\DomainModels\\AppDBContext.cs",
+              "RelativeDocumentMoniker": "..\\DAL\\DomainModels\\AppDBContext.cs",
+              "ToolTip": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\DAL\\DomainModels\\AppDBContext.cs",
+              "RelativeToolTip": "..\\DAL\\DomainModels\\AppDBContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ0AAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-16T12:27:36.21Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\EventApi\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\EventApi\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-16T13:29:49.5Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\EventApi\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\EventApi\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-16T13:13:26.59Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DAL",
+              "DocumentMoniker": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\DAL\\DAL.csproj",
+              "RelativeDocumentMoniker": "..\\DAL\\DAL.csproj",
+              "ToolTip": "C:\\C# Intermidiate \u002B practice\\Diagrams\\Mentoring-Program-projects\\DAL\\DAL.csproj",
+              "RelativeToolTip": "..\\DAL\\DAL.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-16T11:54:59.974Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
