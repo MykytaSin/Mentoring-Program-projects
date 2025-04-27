@@ -4,7 +4,7 @@ using DAL.Repository;
 
 namespace DAL.UnitOfWork
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDBContext _context;
         private readonly Dictionary<Type, object> _repositories;
