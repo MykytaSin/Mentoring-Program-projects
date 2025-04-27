@@ -11,7 +11,7 @@ var connectionString =
         ?? throw new InvalidOperationException("Connection string"
         + "'DefaultConnection' not found.");
 
-builder.Services.AddDbContext<AppDBContext>(options =>
+builder.Services.AddDbContext<MyAppContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddControllers();

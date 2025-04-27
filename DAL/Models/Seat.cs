@@ -7,19 +7,11 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Models;
 
 [Table("seats")]
-[Index("Manifestid", "Sectionname", "Rownumber", "Seatnumber", Name = "uq_seat_location", IsUnique = true)]
 public partial class Seat
 {
     [Key]
     [Column("seatid")]
     public int Seatid { get; set; }
-
-    [Column("manifestid")]
-    public int Manifestid { get; set; }
-
-    [Column("sectionname")]
-    [StringLength(50)]
-    public string? Sectionname { get; set; }
 
     [Column("rownumber")]
     public int Rownumber { get; set; }
@@ -30,13 +22,16 @@ public partial class Seat
     [Column("seattypeid")]
     public int Seattypeid { get; set; }
 
-    [ForeignKey("Manifestid")]
-    [InverseProperty("Seats")]
-    public virtual Manifest Manifest { get; set; } = null!;
+    [Column("sectionid")]
+    public int Sectionid { get; set; }
 
     [ForeignKey("Seattypeid")]
     [InverseProperty("Seats")]
     public virtual Seattype Seattype { get; set; } = null!;
+
+    [ForeignKey("Sectionid")]
+    [InverseProperty("Seats")]
+    public virtual Section Section { get; set; } = null!;
 
     [InverseProperty("Seat")]
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();

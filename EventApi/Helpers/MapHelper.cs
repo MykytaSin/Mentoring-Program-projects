@@ -17,5 +17,18 @@ namespace EventApi.Helpers
                 Capacity = venue.Capacity
             }).ToList());
         }
+
+        public async Task<List<EventInfo>> MapEventsToEventsInfoAsync(List<Event> events)
+        {
+            return await Task.Run(() => events.Select(eventItem => new EventInfo
+            {
+                EventId = eventItem.Eventid,
+                Name = eventItem.Name,
+                Description = eventItem.Description,
+                EventDateTime = eventItem.Eventdatetime,
+                EventStatusName = eventItem.Eventstatus.Eventstatusname,
+                Eventstatusid = eventItem.Eventstatus.Eventstatusid
+            }).ToList());
+        }
     }
 }

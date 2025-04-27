@@ -30,7 +30,7 @@ public partial class Manifest
     public virtual Manifesttype Manifesttype { get; set; } = null!;
 
     [InverseProperty("Manifest")]
-    public virtual ICollection<Seat> Seats { get; set; } = new List<Seat>();
+    public virtual ICollection<Section> Sections { get; set; } = new List<Section>();
 
     [ForeignKey("Venueid")]
     [InverseProperty("Manifests")]

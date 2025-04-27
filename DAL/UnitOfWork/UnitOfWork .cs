@@ -6,11 +6,11 @@ namespace DAL.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly AppDBContext _context;
+        private readonly MyAppContext _context;
         private readonly Dictionary<Type, object> _repositories;
         private bool _disposed = false;
 
-        public UnitOfWork(AppDBContext context)
+        public UnitOfWork(MyAppContext context)
         {
             _context = context;
             _repositories = new Dictionary<Type, object>();

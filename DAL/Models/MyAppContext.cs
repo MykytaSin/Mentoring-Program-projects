@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Models;
 
-public partial class AppDBContext : DbContext
+public partial class MyAppContext : DbContext
 {
-    public AppDBContext()
+    public MyAppContext()
     {
     }
 
-    public AppDBContext(DbContextOptions<AppDBContext> options)
+    public MyAppContext(DbContextOptions<MyAppContext> options)
         : base(options)
     {
     }
@@ -37,6 +37,8 @@ public partial class AppDBContext : DbContext
 
     public virtual DbSet<Seattype> Seattypes { get; set; }
 
+    public virtual DbSet<Section> Sections { get; set; }
+
     public virtual DbSet<Ticket> Tickets { get; set; }
 
     public virtual DbSet<Ticketstatus> Ticketstatuses { get; set; }
@@ -47,9 +49,9 @@ public partial class AppDBContext : DbContext
 
     public virtual DbSet<Venue> Venues { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=12345;Include Error Detail=true");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=12345;Include Error Detail=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -146,18 +148,29 @@ public partial class AppDBContext : DbContext
         {
             entity.HasKey(e => e.Seatid).HasName("seats_pkey");
 
-            entity.HasOne(d => d.Manifest).WithMany(p => p.Seats)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_seat_manifest");
-
             entity.HasOne(d => d.Seattype).WithMany(p => p.Seats)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_seat_type");
+
+            entity.HasOne(d => d.Section).WithMany(p => p.Seats)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_seats_section");
         });
 
         modelBuilder.Entity<Seattype>(entity =>
         {
             entity.HasKey(e => e.Seattypeid).HasName("seattypes_pkey");
+        });
+
+        modelBuilder.Entity<Section>(entity =>
+        {
+            entity.HasKey(e => e.Sectionid).HasName("Section_pkey");
+
+            entity.Property(e => e.Sectionid).ValueGeneratedNever();
+
+            entity.HasOne(d => d.Manifest).WithMany(p => p.Sections)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_section_manifest");
         });
 
         modelBuilder.Entity<Ticket>(entity =>

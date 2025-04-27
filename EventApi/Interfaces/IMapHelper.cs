@@ -6,5 +6,7 @@ namespace EventApi.Interfaces
     public interface IMapHelper
     {
         public Task<List<VenueInfo>> MapVenuesToVenueInfoAsync(List<Venue> venues);
+
+        public Task<List<EventInfo>> MapEventsToEventsInfoAsync(List<Event> events);
     }
 }

@@ -1,4 +1,5 @@
-﻿using DAL.Interfaces;
+﻿using System;
+using DAL.Interfaces;
 using DAL.Models;
 using EventApi.DTO;
 using EventApi.Interfaces;
@@ -11,11 +12,12 @@ namespace EventApi.Services
         IUnitOfWork _unitOfWork;
         IAsyncRepository<Venue> _venueRepo;
         IMapHelper _mapHelper;
+        MyAppContext _context;
 
-        public VenueService(IUnitOfWork unitOfWork, IMapHelper mapHelper)
+        public VenueService(IUnitOfWork unitOfWork, IMapHelper mapHelper, MyAppContext context)
         {
             _unitOfWork = unitOfWork;
-
+            _context = context;
             _venueRepo = _unitOfWork.Repository<Venue>();
             _mapHelper = mapHelper;
         }
@@ -25,14 +27,14 @@ namespace EventApi.Services
             return await _mapHelper.MapVenuesToVenueInfoAsync(venues);
         }
 
-        public async Task GetAllVenuesSection(int venueId)
+        public async Task<List<Section>> GetAllVenuesSection(int venueId)
         {
-            var venueWithManifest = _venueRepo.GetAllAsync(
-                predicate: venue => venue.Venueid == venueId,
-                null,
-                venue => venue.Manifests.Select(manifest => manifest.Manifesttype),
-                venue => venue.Manifests.Select(manifest => manifest.Seats)
-            ).FirstOrDefaultAsync();
+            
+            
+
+            var sections = await _context.Venues.Include(v=>v.Manifests).ThenInclude(m => m.Sections).Where(v=>v.Venueid==venueId).SelectMany(m=>m.Manifests).SelectMany(s=>s.Sections).ToListAsync();
+
+            return sections;
         }
 
 

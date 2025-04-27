@@ -7,9 +7,9 @@ namespace DAL.Repository
 {
     public class GenericAsyncRepository<T> : IAsyncRepository<T> where T : class
     {
-        private readonly AppDBContext _context;
+        private readonly MyAppContext _context;
         private readonly DbSet<T> _dbSet;
-        public GenericAsyncRepository(AppDBContext context)
+        public GenericAsyncRepository(MyAppContext context)
         {
             _context = context;
             _dbSet = context.Set<T>();
