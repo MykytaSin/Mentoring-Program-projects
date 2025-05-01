@@ -10,14 +10,12 @@ namespace EventApi.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAsyncRepository<Event> _eventRepository;
-        private readonly IAsyncRepository<Seat> _seatsRepository;
         private readonly IMapHelper _mapHelper;
         private readonly MyAppContext _context;
         public EventService(IUnitOfWork unitOfWork, IMapHelper mapHelper, MyAppContext context)
         {
             _unitOfWork = unitOfWork;
             _eventRepository = _unitOfWork.Repository<Event>();
-            _seatsRepository = _unitOfWork.Repository<Seat>();
             _mapHelper = mapHelper;
 
             _context = context;
@@ -40,28 +38,6 @@ namespace EventApi.Services
 
             return await _mapHelper.MapEventsToEventsInfoAsync(events);
         }
-
-        //public async Task<List<object>> GetSeatsWithStatus(int eventId, int sectionId)
-        //{
-        //    var seatsWithStatus = await _seatsRepository.GetAllAsync(
-        //        s => s.SectionId == sectionId && s.Tickets.Any(t => t.Eventid == eventId),
-        //        null,
-        //        s => s.Tickets,
-        //        s => s.Tickets.Select(t => t.Ticketstatus)
-        //    ).Select(s => new
-        //    {
-        //        SectionId = s.SectionId,
-        //        RowId = s.Rownumber,
-        //        SeatId = s.Seatid,
-        //        Status = new
-        //        {
-        //            Id = s.Tickets.FirstOrDefault() != null ? s.Tickets.FirstOrDefault().Ticketstatus.Ticketstatusid : (int?)null,
-        //            Name = s.Tickets.FirstOrDefault() != null ? s.Tickets.FirstOrDefault().Ticketstatus.Ticketstatusname : null
-        //        }
-        //    }).ToListAsync();
-
-        //    return seatsWithStatus;
-        //}
 
         public async Task<List<object>> GetSeatsWithStatusAndPriceOptions(int eventId, int sectionId)
         {

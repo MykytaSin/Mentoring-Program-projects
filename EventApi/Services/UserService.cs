@@ -67,6 +67,19 @@ namespace EventApi.Services
 
         }
 
+        public async Task<CurrentUser> GetCurrentUser()
+        {
+            return await Task.Run(() => new CurrentUser()
+            {
+                UserId = 1
+            });
+        }
+
+        public Task<bool> SetAdminStatusForUser(string userEmail)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> SetManagerStatusForUser(string userEmail)
         {
             var userRepo = _unitOfWork.Repository<User>();

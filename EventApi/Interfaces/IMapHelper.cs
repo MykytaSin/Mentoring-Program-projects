@@ -8,5 +8,6 @@ namespace EventApi.Interfaces
         public Task<List<VenueInfo>> MapVenuesToVenueInfoAsync(List<Venue> venues);
 
         public Task<List<EventInfo>> MapEventsToEventsInfoAsync(List<Event> events);
+        public OrderInfo MapPurchaseToOrderInfo(Purchase purchase);
     }
 }

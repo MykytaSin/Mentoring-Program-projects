@@ -68,3 +68,4 @@ EventApi/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.EventApi.p
 EventApi/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.EventApi.props
 *.cache
 *.v2
+*.dll

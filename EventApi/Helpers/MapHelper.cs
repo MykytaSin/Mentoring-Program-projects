@@ -30,5 +30,28 @@ namespace EventApi.Helpers
                 Eventstatusid = eventItem.Eventstatus.Eventstatusid
             }).ToList());
         }
+        public OrderInfo MapPurchaseToOrderInfo(Purchase purchase)
+        {
+            
+            List<TicketMinimizedInfo> minimizedTickets = purchase.Tickets.Select(ticket=>new TicketMinimizedInfo
+            {
+                TicketId = ticket.Ticketid,
+                EventName = ticket.Event.Name,
+                StartDate = ticket.Event.Eventdatetime,
+                SectionName = ticket.Seat.Section.Sectionname,
+                RowNumber = ticket.Seat.Rownumber,
+                SeatNumber = ticket.Seat.Seatid,
+                Price = ticket.Offerprice.Price
+            }).ToList();
+
+            decimal totalPrice = minimizedTickets.Sum(t => t.Price);
+            return new OrderInfo
+            {
+                CartIdentifier = purchase.Purchaseid,
+                TotalPrice = totalPrice,
+                MinimizedTickets = minimizedTickets
+            };
+
+        }
     }
 }
