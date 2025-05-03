@@ -8,7 +8,6 @@
         public string SectionName { get; set; }
         public int RowNumber { get; set; }
         public int SeatNumber { get; set; }
-        
         public decimal Price { get; set; }
     }
 }

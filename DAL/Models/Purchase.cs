@@ -15,6 +15,8 @@ public partial class Purchase
 
     public Guid Purchaseid { get; set; }
 
+    public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
+
     public virtual Purchasestatus Purchasestatus { get; set; } = null!;
 
     public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
