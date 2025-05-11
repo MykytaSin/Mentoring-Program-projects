@@ -1,4 +1,5 @@
-﻿using DAL.Models;
+﻿using DAL.DalCustomExceptions;
+using DAL.Models;
 using EventApi.DTO;
 using EventApi.Helpers;
 using EventApi.Interfaces;
@@ -13,9 +14,9 @@ namespace EventApi.Services
         {
             _context = myAppContext;
         }
-        public async Task<Guid> GetPaymentId()
+        public Guid GetPaymentId()
         {
-            return await Task.Run(() => Guid.NewGuid());
+            return Guid.NewGuid();
         }
 
         public async Task<string> GetPaymentStatus(Guid payment_id)
@@ -30,9 +31,9 @@ namespace EventApi.Services
             return statusName;
         }
 
-        public async Task<bool> CompletePayment(Guid payment_id)
+        public async Task<bool> CompletePayment(Guid paymentId)
         {
-            var payment = await _context.Payments.Include(p => p.Paymentstatus).FirstOrDefaultAsync(p => p.Paymentid == payment_id);
+            var payment = await _context.Payments.Include(p => p.Paymentstatus).FirstOrDefaultAsync(p => p.Paymentid == paymentId);
 
             if (payment == null)
             {
@@ -87,7 +88,7 @@ namespace EventApi.Services
             }
             catch (NullReferenceException)
             {
-                throw;
+                throw new NullReferenceException("PaymentStatus is null");
             }
 
             if (await _context.SaveChangesAsync() > 0)
@@ -96,7 +97,7 @@ namespace EventApi.Services
             }
             else
             {
-                throw new Exception("Failed to update seat status");
+                throw new NullValueEntitySearchExceprion("Failed to update seat status");
             }
         }
         public async Task<bool> UpdateSeatStatus(Payment payment, string status)

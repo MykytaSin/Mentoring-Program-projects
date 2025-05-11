@@ -5,6 +5,6 @@ namespace EventApi.Interfaces
     public interface IEventService
     {
         public Task<List<EventInfo>> GetAllMinimizedEventInfo();
-        public Task<List<object>> GetSeatsWithStatusAndPriceOptions(int eventId, int sectionId);
+        public Task<List<SeatsWithStatusAndPrice>> GetSeatsWithStatusAndPriceOptions(int eventId, int sectionId);
     }
 }

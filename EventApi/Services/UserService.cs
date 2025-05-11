@@ -1,70 +1,52 @@
-﻿using DAL.Interfaces;
-using DAL.Models;
+﻿using DAL.Models;
 using EventApi.DTO;
+using EventApi.Helpers;
 using EventApi.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventApi.Services
 {
     public class UserService: IUserService
     {
-        IUnitOfWork _unitOfWork;
-        // тут должен быть еще логгер , но пока не нужно
+        private readonly MyAppContext _context;
 
-
-        public UserService(IUnitOfWork unitOfWork)
+        public UserService(MyAppContext context)
         {
-            _unitOfWork = unitOfWork;
-            
+            _context = context;
         }
 
-        //this is for testing purposes
         public async Task<bool> CreateNewUser(InitialUser userData)
         {
 
-            var userRepo = _unitOfWork.Repository<User>();
-            var userRoleRepo = _unitOfWork.Repository<Usersrole>();
+            var userRole = await _context.Usersroles.FirstOrDefaultAsync(r => r.Rolename == Constants.CustomerUserRole);
 
-            var userRole = await userRoleRepo.GetByConditionAsync(x => x.Rolename == "Customer");
             if (userRole == null)
             {
-                using var _ = userRoleRepo.AddAsync(new Usersrole()
-                {
-                    Rolename = "Customer"
-                });
-                userRole = await userRoleRepo.GetByConditionAsync(x => x.Rolename == "Customer");
+                await _context.Usersroles.AddAsync(new Usersrole() { Rolename = "Customer" });
+                await _context.SaveChangesAsync();
+
+                userRole = await _context.Usersroles.FirstOrDefaultAsync(r => r.Rolename == Constants.CustomerUserRole);
             }
 
-            try
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == userData.Email || u.Username == userData.Username);
+
+            if (user is null)
             {
-                return await userRepo.GetByConditionAsync(x => x.Email == userData.Email || x.Username == userData.Username).ContinueWith(task =>
+                var newUser = new User()
                 {
-                    if (task.Result != null)
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        var newUser = new User()
-                        {
-                            Email = userData.Email,
-                            Firstname = userData.Firstname,
-                            Lastname = userData.Lastname,
-                            Passwordhash = userData.Passwordhash,
-                            Username = userData.Username,
-                            Roleid = userRole.Roleid
-                        };
-                        userRepo.AddAsync(newUser);
-                        _unitOfWork.SaveChangesAsync();
-                        return true;
-                    }
-                });
-            }
-            catch
-            {
-                Console.WriteLine("something go wrong");
-                return false;
+                    Email = userData.Email,
+                    Firstname = userData.Firstname,
+                    Lastname = userData.Lastname,
+                    Passwordhash = userData.Passwordhash,
+                    Username = userData.Username,
+                    Roleid = userRole.Roleid
+                };
+                await _context.Users.AddAsync(newUser);
+                await _context.SaveChangesAsync();
+                return true;
             }
 
+            return false;
         }
 
         public async Task<CurrentUser> GetCurrentUser()
@@ -75,36 +57,29 @@ namespace EventApi.Services
             });
         }
 
-        public Task<bool> SetAdminStatusForUser(string userEmail)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<bool> SetManagerStatusForUser(string userEmail)
         {
-            var userRepo = _unitOfWork.Repository<User>();
-            var userRoleRepo = _unitOfWork.Repository<Usersrole>();
 
-            var userRole = await userRoleRepo.GetByConditionAsync(x => x.Rolename == "Manager");
+            var userRole = await _context.Usersroles.FirstAsync(r=>r.Rolename == Constants.ManagerUserRole);
+
             if (userRole == null)
             {
-                using var _ = userRoleRepo.AddAsync(new Usersrole()
-                {
-                    Rolename = "Manager"
-                });
-                userRole = await userRoleRepo.GetByConditionAsync(x => x.Rolename == "Manager");
+                _context.Usersroles.Add(new Usersrole() { Rolename = Constants.ManagerUserRole });
+                await _context.SaveChangesAsync();
+                userRole = await _context.Usersroles.FirstAsync(r => r.Rolename == Constants.ManagerUserRole);
             }
 
             try
             {
-                var dbUser = await userRepo.GetByConditionAsync(x => string.Equals(userEmail, x.Email));
+                var dbUser = await _context.Users.FirstAsync(u => u.Email == userEmail);
                 dbUser.Roleid = userRole.Roleid;
-                await userRepo.UpdateAsync(dbUser);
+                await _context.SaveChangesAsync();
                 return true;
             }
-            catch
+            catch(NullReferenceException ex)
             {
-                Console.WriteLine("something go wrong");
+                Console.WriteLine(ex);
                 return false;
             }
         }
