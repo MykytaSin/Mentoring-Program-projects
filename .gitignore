@@ -71,3 +71,10 @@ EventApi/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.EventApi.props
 *.dll
 DAL/bin/Debug/net8.0/DAL.dll
 *.dll
+*.dll
+*.dll
+/DAL/obj/Debug
+/EventApiTests/bin/Debug
+/EventApiTests/obj/Debug
+/DAL/obj/Debug
+/DAL/bin/Debug

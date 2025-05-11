@@ -7,8 +7,6 @@ namespace EventApi.Interfaces
         public Task<bool> CreateNewUser(InitialUser userData);
         public Task<bool> SetManagerStatusForUser(string userEmail);
 
-        public Task<bool> SetAdminStatusForUser(string userEmail);
-
         public Task<CurrentUser> GetCurrentUser();
     }
 }
