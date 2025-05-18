@@ -2,6 +2,7 @@
 using EventApi.Controllers;
 using EventApi.DTO;
 using EventApi.Interfaces;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -34,9 +35,11 @@ namespace EventApiTests.Controllers
             var result = await _venueController.GetAllVenues();
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedVenues = Assert.IsType<List<VenueInfo>>(okResult.Value);
-            Assert.Equal(mockVenues.Count, returnedVenues.Count);
+            result.Should().BeOfType<OkObjectResult>();
+            var okResult = result as OkObjectResult;
+            okResult!.Value.Should().BeOfType<List<VenueInfo>>();
+            var returnedVenues = okResult.Value as List<VenueInfo>;
+            returnedVenues.Should().HaveCount(mockVenues.Count);
         }
 
         [Fact]
@@ -56,9 +59,11 @@ namespace EventApiTests.Controllers
             var result = await _venueController.GetAllVenueSections(venueId);
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedSections = Assert.IsType<List<Section>>(okResult.Value);
-            Assert.Equal(mockSections.Count, returnedSections.Count);
+            result.Should().BeOfType<OkObjectResult>();
+            var okResult = result as OkObjectResult;
+            okResult!.Value.Should().BeOfType<List<Section>>();
+            var returnedSections = okResult.Value as List<Section>;
+            returnedSections.Should().HaveCount(mockSections.Count);
         }
     }
 }

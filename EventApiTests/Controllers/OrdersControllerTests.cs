@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EventApi.Controllers;
+﻿using EventApi.Controllers;
 using EventApi.DTO;
 using EventApi.Interfaces;
+using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -38,15 +35,18 @@ namespace EventApiTests.Controllers
 
             // Act
             var result = await _ordersController.GetCartItems(cartId);
+            var okResult = result.As<OkObjectResult>();
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedOrderInfo = Assert.IsType<OrderInfo>(okResult.Value);
-            Assert.Equal(cartId, returnedOrderInfo.CartIdentifier);
+            result.Should().BeOfType<OkObjectResult>();
+            okResult.StatusCode.Should().Be(StatusCodes.Status200OK);
+            okResult.Value.Should().BeAssignableTo<OrderInfo>()
+                .And.BeEquivalentTo(mockOrderInfo);
+
         }
 
         [Fact]
-        public void AddSeatToCart_ShouldReturnOkResult_WithUpdatedOrderInfo()
+        public async Task AddSeatToCart_ShouldReturnOkResult_WithUpdatedOrderInfo()
         {
             // Arrange
             var cartId = Guid.NewGuid();
@@ -61,15 +61,17 @@ namespace EventApiTests.Controllers
                 .ReturnsAsync(mockOrderInfo);
 
             // Act
-            var result = _ordersController.AddSeatToCart(cartId, payload);
+            var result = await _ordersController.AddSeatToCart(cartId, payload) as OkObjectResult;
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedOrderInfo = Assert.IsType<Task<OrderInfo>>(okResult.Value);
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(StatusCodes.Status200OK);
+            result.Value.Should().BeAssignableTo<OrderInfo>()
+                .And.BeEquivalentTo(mockOrderInfo);
         }
 
         [Fact]
-        public void DeleteSeatFromCart_ShouldReturnOkResult_WithUpdatedOrderInfo()
+        public async Task DeleteSeatFromCart_ShouldReturnOkResult_WithUpdatedOrderInfo()
         {
             // Arrange
             var cartId = Guid.NewGuid();
@@ -85,11 +87,14 @@ namespace EventApiTests.Controllers
                 .ReturnsAsync(mockOrderInfo);
 
             // Act
-            var result = _ordersController.DeleteSeatFromCart(cartId, eventId, seatId);
+            var result = await _ordersController.DeleteSeatFromCart(cartId, eventId, seatId) as OkObjectResult;
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedOrderInfo = Assert.IsType<Task<OrderInfo>>(okResult.Value);
+
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(StatusCodes.Status200OK);
+            result.Value.Should().BeAssignableTo<OrderInfo>()
+                .And.BeEquivalentTo(mockOrderInfo);
         }
 
         [Fact]
@@ -102,10 +107,13 @@ namespace EventApiTests.Controllers
                 .ReturnsAsync(mockPaymentId);
 
             // Act
-            var result = _ordersController.BookCart(cartId);
+            var result = await _ordersController.BookCart(cartId) as OkObjectResult;
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(StatusCodes.Status200OK);
+            result.Value.Should().BeAssignableTo<Guid>()
+                .And.BeEquivalentTo(mockPaymentId);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using DAL.Models;
+using EventApi.DTO;
 using EventApi.Helpers;
+using FluentAssertions;
 
 namespace EventApiTests.Helpers
 {
@@ -26,10 +28,20 @@ namespace EventApiTests.Helpers
             var result = await _mapHelper.MapVenuesToVenueInfoAsync(venues);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(2, result.Count);
-            Assert.Equal("Venue 1", result[0].Name);
-            Assert.Equal("City 2", result[1].City);
+            result.Should().NotBeNull();
+            result.Should().HaveCount(2);
+            result.Should().Contain(info => info.Name == "Venue 1");
+            result.Should().Contain(info => info.City == "City 2");
+
+            var expectedVenueInfos = new List<VenueInfo>
+            {
+                new VenueInfo { Name = "Venue 1", City = "City 1" },
+                new VenueInfo { Name = "Venue 2", City = "City 2" }
+            };
+            result.Should().BeEquivalentTo(expectedVenueInfos, options => options
+                .Excluding(info => info.VenueId)
+                .Excluding(info => info.Address)
+                .Excluding(info => info.Capacity));
         }
 
         [Fact]
@@ -42,8 +54,9 @@ namespace EventApiTests.Helpers
             var result = await _mapHelper.MapVenuesToVenueInfoAsync(venues);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Empty(result);
+            result.Should().NotBeNull();
+            result.Should().HaveCount(0);
+            result.Should().BeAssignableTo<List<VenueInfo>>();
         }
 
         [Fact]

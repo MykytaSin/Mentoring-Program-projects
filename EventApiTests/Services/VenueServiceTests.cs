@@ -2,6 +2,7 @@
 using EventApi.DTO;
 using EventApi.Interfaces;
 using EventApi.Services;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using Moq.EntityFrameworkCore;
@@ -51,10 +52,10 @@ namespace EventApiTests.Services
             var result = await _venueService.GetAllVenues();
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(2, result.Count);
-            Assert.Equal("Venue 1", result[0].Name);
-            Assert.Equal("Venue 2", result[1].Name);
+            result.Should().NotBeNull();
+            result.Should().HaveCount(2);
+            result[0].Name.Should().Be("Venue 1");
+            result[1].Name.Should().Be("Venue 2");
         }
 
         [Fact]
@@ -84,10 +85,10 @@ namespace EventApiTests.Services
             var result = await _venueService.GetAllVenuesSection(venueId);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal(2, result.Count);
-            Assert.Equal("Section 1", result[0].Sectionname);
-            Assert.Equal("Section 2", result[1].Sectionname);
+            result.Should().NotBeNull();
+            result.Should().HaveCount(2);
+            result[0].Sectionname.Should().Be("Section 1");
+            result[1].Sectionname.Should().Be("Section 2");
         }
     }
 }

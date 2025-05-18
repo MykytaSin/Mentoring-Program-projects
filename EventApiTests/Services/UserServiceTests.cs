@@ -2,7 +2,7 @@
 using EventApi.DTO;
 using EventApi.Helpers;
 using EventApi.Services;
-using Microsoft.EntityFrameworkCore;
+using FluentAssertions;
 using Moq;
 using Moq.EntityFrameworkCore;
 
@@ -40,7 +40,7 @@ namespace EventApiTests.Services
             var result = await _userService.CreateNewUser(userData);
 
             // Assert
-            Assert.True(result);
+            result.Should().BeTrue();
             _mockContext.Verify(c => c.SaveChangesAsync(default), Times.Once);
         }
 
@@ -67,7 +67,7 @@ namespace EventApiTests.Services
             var result = await _userService.CreateNewUser(userData);
 
             // Assert
-            Assert.False(result);
+            result.Should().BeFalse();
             _mockContext.Verify(c => c.SaveChangesAsync(default), Times.Never);
         }
 
@@ -79,14 +79,14 @@ namespace EventApiTests.Services
             var dbUser = new User { Email = "test@example.com", Roleid = 1 };
 
             _mockContext.Setup(c => c.Usersroles).ReturnsDbSet(new List<Usersrole>() { userRole });
-            _mockContext.Setup(c => c.Users).ReturnsDbSet(new List<User>(){ dbUser });
+            _mockContext.Setup(c => c.Users).ReturnsDbSet(new List<User>() { dbUser });
 
             // Act
             var result = await _userService.SetManagerStatusForUser("test@example.com");
 
             // Assert
-            Assert.True(result);
-            Assert.Equal(userRole.Roleid, dbUser.Roleid);
+            result.Should().BeTrue();
+            dbUser.Roleid.Should().Be(userRole.Roleid);
             _mockContext.Verify(c => c.SaveChangesAsync(default), Times.Once);
         }
 
@@ -102,7 +102,7 @@ namespace EventApiTests.Services
             var result = await _userService.SetManagerStatusForUser("nonexistent@example.com");
 
             // Assert
-            Assert.False(result);
+            result.Should().BeFalse();
             _mockContext.Verify(c => c.SaveChangesAsync(default), Times.Never);
         }
     }

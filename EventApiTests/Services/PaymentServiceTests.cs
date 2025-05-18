@@ -1,6 +1,7 @@
 ﻿using DAL.Models;
 using EventApi.Helpers;
 using EventApi.Services;
+using FluentAssertions;
 using Moq;
 using Moq.EntityFrameworkCore;
 
@@ -24,7 +25,7 @@ namespace EventApiTests.Services
             var result = _paymentService.GetPaymentId();
 
             // Assert
-            Assert.NotEqual(Guid.Empty, result);
+            result.Should().NotBe(Guid.Empty);
         }
 
         [Fact]
@@ -44,7 +45,7 @@ namespace EventApiTests.Services
             var result = await _paymentService.GetPaymentStatus(paymentId);
 
             // Assert
-            Assert.Equal(Constants.PaymentStatusCompleted, result);
+            result.Should().Be(Constants.PaymentStatusCompleted);
         }
 
         [Fact]
@@ -57,7 +58,8 @@ namespace EventApiTests.Services
             _mockContext.Setup(c => c.Payments).ReturnsDbSet(payments);
 
             // Act & Assert
-            await Assert.ThrowsAsync<Exception>(() => _paymentService.GetPaymentStatus(paymentId));
+            await _paymentService.Invoking(s => s.GetPaymentStatus(paymentId))
+                .Should().ThrowAsync<Exception>();
         }
 
         [Fact]
@@ -75,7 +77,7 @@ namespace EventApiTests.Services
             var result = await _paymentService.CompletePayment(paymentId);
 
             // Assert
-            Assert.True(result);
+            result.Should().BeTrue();
         }
 
         [Fact]
@@ -92,7 +94,7 @@ namespace EventApiTests.Services
             var result = await _paymentService.RollBackPayment(paymentId);
 
             // Assert
-            Assert.True(result);
+            result.Should().BeTrue();
         }
 
 

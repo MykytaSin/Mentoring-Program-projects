@@ -3,6 +3,8 @@ using EventApi.Controllers;
 using EventApi.DTO;
 using EventApi.Helpers;
 using EventApi.Interfaces;
+using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -33,11 +35,13 @@ namespace EventApiTests.Controllers
 
             // Act
             var result = await _eventController.GetAllEvents();
+            var okResult = result.As<OkObjectResult>();
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedEvents = Assert.IsType<List<EventInfo>>(okResult.Value);
-            Assert.Equal(2, returnedEvents.Count);
+            result.Should().BeOfType<OkObjectResult>();
+            okResult.StatusCode.Should().Be(StatusCodes.Status200OK);
+            okResult.Value.Should().BeAssignableTo<IEnumerable<EventInfo>>()
+                .And.BeEquivalentTo(mockEvents);
         }
 
         [Fact]
@@ -65,12 +69,13 @@ namespace EventApiTests.Controllers
 
             // Act
             var result = await _eventController.GetSeatsWithStatusAndPriceOptions(eventId, sectionId);
+            var okResult = result.As<OkObjectResult>();
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedSeats = Assert.IsType<List<SeatsWithStatusAndPrice>>(okResult.Value);
-            Assert.Single(returnedSeats);
-            Assert.Equal(101, returnedSeats.First().SeatId);
+            result.Should().BeOfType<OkObjectResult>();
+            okResult.StatusCode.Should().Be(StatusCodes.Status200OK);
+            okResult.Value.Should().BeAssignableTo<IEnumerable<SeatsWithStatusAndPrice>>()
+                .And.BeEquivalentTo(mockSeats);
         }
 
         [Fact]
@@ -82,11 +87,13 @@ namespace EventApiTests.Controllers
 
             // Act
             var result = await _eventController.GetAllEvents();
+            var okResult = result.As<OkObjectResult>();
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedEvents = Assert.IsType<List<EventInfo>>(okResult.Value);
-            Assert.Empty(returnedEvents);
+            result.Should().BeOfType<OkObjectResult>();
+            okResult.Value.Should().BeAssignableTo<IEnumerable<EventInfo>>()
+                .And.BeEquivalentTo(new List<EventInfo>());
+
         }
 
         [Fact]
@@ -99,11 +106,12 @@ namespace EventApiTests.Controllers
 
             // Act
             var result = await _eventController.GetSeatsWithStatusAndPriceOptions(eventId, sectionId);
+            var okResult = result.As<OkObjectResult>();
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedSeats = Assert.IsType<List<SeatsWithStatusAndPrice>>(okResult.Value);
-            Assert.Empty(returnedSeats);
+            result.Should().BeOfType<OkObjectResult>();
+            okResult.Value.Should().BeAssignableTo<IEnumerable<SeatsWithStatusAndPrice>>()
+                .And.BeEquivalentTo(new List<SeatsWithStatusAndPrice>());
         }
     }
 }

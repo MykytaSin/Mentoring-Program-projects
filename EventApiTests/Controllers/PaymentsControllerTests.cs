@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EventApi.Controllers;
 using EventApi.Interfaces;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -34,9 +35,9 @@ namespace EventApiTests.Controllers
             var result = await _paymentsController.GetPaymentStatus(paymentId);
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedStatus = Assert.IsType<string>(okResult.Value);
-            Assert.Equal(mockStatus, returnedStatus);
+            result.Should().BeOfType<OkObjectResult>()
+                .Which.Value.Should().BeOfType<string>()
+                .Which.Should().Be(mockStatus);
         }
 
         [Fact]
@@ -52,9 +53,9 @@ namespace EventApiTests.Controllers
             var result = await _paymentsController.CompletePayment(paymentId);
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedStatus = Assert.IsType<bool>(okResult.Value);
-            Assert.True(returnedStatus);
+            result.Should().BeOfType<OkObjectResult>()
+                .Which.Value.Should().BeOfType<bool>()
+                .Which.Should().BeTrue();
         }
 
         [Fact]
@@ -70,9 +71,9 @@ namespace EventApiTests.Controllers
             var result = await _paymentsController.RollbackPayment(paymentId);
 
             // Assert
-            var okResult = Assert.IsType<OkObjectResult>(result);
-            var returnedStatus = Assert.IsType<bool>(okResult.Value);
-            Assert.True(returnedStatus);
+            result.Should().BeOfType<OkObjectResult>()
+                .Which.Value.Should().BeOfType<bool>()
+                .Which.Should().BeTrue();
         }
     }
 }

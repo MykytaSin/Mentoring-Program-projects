@@ -3,7 +3,7 @@ using EventApi.DTO;
 using EventApi.Helpers;
 using EventApi.Interfaces;
 using EventApi.Services;
-using Microsoft.EntityFrameworkCore;
+using FluentAssertions;
 using Moq;
 using Moq.EntityFrameworkCore;
 
@@ -38,9 +38,9 @@ namespace EventApiTests.Services
             var result = await _eventService.GetAllEvents();
 
             // Assert
-            Assert.Equal(2, result.Count);
-            Assert.Equal("Event 1", result[0].Name);
-            Assert.Equal("Event 2", result[1].Name);
+            result.Should().HaveCount(2);
+            result[0].Name.Should().Be("Event 1");
+            result[1].Name.Should().Be("Event 2");
         }
 
         [Fact]
@@ -67,9 +67,9 @@ namespace EventApiTests.Services
             var result = await _eventService.GetAllMinimizedEventInfo();
 
             // Assert
-            Assert.Equal(2, result.Count);
-            Assert.Equal("Event 1", result[0].Name);
-            Assert.Equal("Active", result[0].EventStatusName);
+            result.Should().HaveCount(2);
+            result[0].Name.Should().Be("Event 1");
+            result[0].EventStatusName.Should().Be("Active");
         }
 
         [Fact]
@@ -110,13 +110,13 @@ namespace EventApiTests.Services
             var result = await _eventService.GetSeatsWithStatusAndPriceOptions(1, 1);
 
             // Assert
-            Assert.Single(result);
-            Assert.Equal(1, result[0].SectionId);
-            Assert.Equal(1, result[0].RowNumber);
-            Assert.Equal(1, result[0].SeatId);
-            Assert.Equal("Available", result[0].Status.Ticketstatusname);
-            Assert.Single(result[0].PriceOptions);
-            Assert.Equal(100, result[0].PriceOptions[0].Price);
+            result.Should().ContainSingle();
+            result[0].SectionId.Should().Be(1);
+            result[0].RowNumber.Should().Be(1);
+            result[0].SeatId.Should().Be(1);
+            result[0].Status.Ticketstatusname.Should().Be("Available");
+            result[0].PriceOptions.Should().ContainSingle();
+            result[0].PriceOptions[0].Price.Should().Be(100);
         }
 
         private void MoqMapHelperEventsToEventsInfoAsync()
