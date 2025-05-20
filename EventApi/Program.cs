@@ -16,6 +16,8 @@ builder.Services.AddDbContext<MyAppContext>(options =>
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddResponseCaching();
+builder.Services.AddMemoryCache();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 DIConfigurator.ConfigureDI(builder);

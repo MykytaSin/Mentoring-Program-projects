@@ -20,5 +20,11 @@
         public const string EventStatusInactive = "Inactive";
         public const string EventStatusPreSale = "PreSale";
 
+        //Cache keys
+        public const string AllEventsCacheKey = "AllEvents";
+        public const string MinimizedEventsCacheKey = "MinimizedEvents";
+        public const string SeatsWithStatusAndPriceCacheKey = "SeatsWithStatusAndPrice";
+
+
     }
 }
