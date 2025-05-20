@@ -1,8 +1,6 @@
 ﻿using EventApi.DTO;
 using EventApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 
 namespace EventApi.Controllers
 {
@@ -16,41 +14,35 @@ namespace EventApi.Controllers
         {
             _orderService = orderService;
         }
-
         // GET orders/carts/{cart_id}
-        [HttpGet("{cart_id}")]
-        public async Task<IActionResult> GetCartItems(Guid cart_id)
+        [HttpGet("{cartId}")]
+        public async Task<IActionResult> GetCartItems(Guid cartId)
         {
             //Task<OrderInfo>
-            var  cartItems = await _orderService.GetOrderAsync(cart_id);
+            var  cartItems = await _orderService.GetOrderAsync(cartId);
             return Ok(cartItems);
         }
-
-        // POST orders/carts/{cart_id}
-        [HttpPost("carts/{cart_id}")]
-        public IActionResult AddSeatToCart(Guid cart_id, [FromBody] CartTicketData payload)
+        // POST orders/carts/{cartId}
+        [HttpPost("carts/{cartId}")]
+        public async Task<IActionResult> AddSeatToCart(Guid cartId, [FromBody] CartTicketData payload)
         {
-            var cartItems = _orderService.AddNewTicketToOrderAsync(cart_id, payload);
-            return Ok(cartItems);
-
-        }
-
-        // DELETE orders/carts/{cart_id}/events/{event_id}/seats/{seat_id}
-        [HttpDelete("carts/{cart_id}/events/{event_id}/seats/{seat_id}")]
-        public IActionResult DeleteSeatFromCart(Guid cart_id, int event_id, int seat_id)
-        {
-            
-            var cartItems = _orderService.DeletTicketAsync(cart_id, event_id, seat_id);
+            var cartItems = await _orderService.AddNewTicketToOrderAsync(cartId, payload);
             return Ok(cartItems);
         }
-
-        // PUT orders/carts/{cart_id}/book
-        [HttpPut("carts/{cart_id}/book")]
-        public IActionResult BookCart(Guid cart_id)
+        // DELETE orders/carts/{cartId}/events/{eventId}/seats/{seatId}
+        [HttpDelete("carts/{cartId}/events/{eventId}/seats/{seatId}")]
+        public async Task<IActionResult> DeleteSeatFromCart(Guid cartId, int eventId, int seatId)
         {
-            var paymentId = _orderService.MooveTicketsInCartToBookedStatusAsync(cart_id);
+            var cartItems = await _orderService.DeletTicketAsync(cartId, eventId, seatId);
+            return Ok(cartItems);
+        }
+        // PUT orders/carts/{cartId}/book
+        [HttpPut("carts/{cartId}/book")]
+        public async Task<IActionResult> BookCart(Guid cartId)
+        {
+            var paymentId = await _orderService.MooveTicketsInCartToBookedStatusAsync(cartId);
 
-            return Ok(new { PaymentId = paymentId });
+            return Ok(paymentId);
         }
     }
 }
