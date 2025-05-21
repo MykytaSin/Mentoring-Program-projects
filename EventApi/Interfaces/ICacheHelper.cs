@@ -7,5 +7,6 @@ namespace EventApi.Interfaces
         public MemoryCacheEntryOptions GetDefaultCacheOptions();
         public MemoryCacheEntryOptions GetCacheOptions(TimeSpan slidingExpiration, TimeSpan absoluteExpiration);
         public void RemoveCacheData(IMemoryCache memoryCache);
+        public string GetDynamicKey(params string[] keyParts);
     }
 }

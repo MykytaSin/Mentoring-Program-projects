@@ -1,4 +1,5 @@
-﻿using EventApi.Interfaces;
+﻿using System.Text;
+using EventApi.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace EventApi.Helpers
@@ -21,9 +22,28 @@ namespace EventApi.Helpers
 
         public void RemoveCacheData(IMemoryCache memoryCache)
         {
-            memoryCache.Remove(Constants.AllEventsCacheKey);
-            memoryCache.Remove(Constants.MinimizedEventsCacheKey);
-            memoryCache.Remove(Constants.SeatsWithStatusAndPriceCacheKey);
+            
+            if(memoryCache is MemoryCache concreteMemoryCache)
+            {
+                var cachedKeys  = concreteMemoryCache.Keys.ToList();
+
+                foreach (var key in cachedKeys)
+                {
+                    memoryCache.Remove(key);
+                }
+
+            }
+        }
+
+        public string GetDynamicKey(params string[] keyParts)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var part in keyParts)
+            {
+                sb.Append(part);
+            }
+            return sb.ToString();
         }
 
     }

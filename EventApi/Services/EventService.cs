@@ -52,7 +52,10 @@ namespace EventApi.Services
         public async Task<List<SeatsWithStatusAndPrice>> GetSeatsWithStatusAndPriceOptions(int eventId, int sectionId)
         {
 
-            if (!_cache.TryGetValue(Constants.SeatsWithStatusAndPriceCacheKey, out List<SeatsWithStatusAndPrice> seatsWithDetails))
+            var key = _cacheHelper.GetDynamicKey(Constants.SeatsWithStatusAndPriceCacheKey, eventId.ToString(), sectionId.ToString());
+
+
+            if (!_cache.TryGetValue(key, out List<SeatsWithStatusAndPrice> seatsWithDetails))
             {
                 seatsWithDetails = await _context.Seats
                 .Where(s => s.Sectionid == sectionId)
@@ -80,7 +83,7 @@ namespace EventApi.Services
 
                 var cacheOptions = _cacheHelper.GetDefaultCacheOptions();
 
-                _cache.Set(Constants.SeatsWithStatusAndPriceCacheKey, seatsWithDetails, cacheOptions);
+                _cache.Set(key, seatsWithDetails, cacheOptions);
             }
 
             return seatsWithDetails;
