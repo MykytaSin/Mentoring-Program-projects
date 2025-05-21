@@ -16,6 +16,7 @@ namespace EventApi.Controllers
 
         // a. GET /events
         [HttpGet]
+        [ResponseCache(Duration = 600, Location = ResponseCacheLocation.Any, NoStore = false)]
         public async Task<IActionResult> GetAllEvents()
         {
             var events = await _eventService.GetAllMinimizedEventInfo();
@@ -24,6 +25,7 @@ namespace EventApi.Controllers
 
         // b. GET /events/{event_id}/sections/{section_id}/seats
         [HttpGet("{event_id}/sections/{section_id}/seats")]
+        [ResponseCache(Duration = 600, Location = ResponseCacheLocation.Any, NoStore = false)]
         public async Task<IActionResult> GetSeatsWithStatusAndPriceOptions(int event_id, int section_id)
         {
             var seats = await _eventService.GetSeatsWithStatusAndPriceOptions(event_id, section_id);

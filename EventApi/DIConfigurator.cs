@@ -14,6 +14,7 @@ namespace EventApi
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<ICacheHelper, CacheHelper>();
         }
     }
 }
