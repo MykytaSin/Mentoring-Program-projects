@@ -4,6 +4,7 @@ using EventApi.Interfaces;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Moq;
 
 namespace EventApiTests.Controllers
@@ -12,11 +13,17 @@ namespace EventApiTests.Controllers
     {
         private readonly Mock<IOrderService> _mockOrderService;
         private readonly OrdersController _ordersController;
+        private readonly Mock<IMemoryCache> _mockMemoryCache;
+        private readonly Mock<ICacheHelper> _cacheHelper;
+
 
         public OrdersControllerTests()
         {
+            _mockMemoryCache = new Mock<IMemoryCache>();
+            _cacheHelper = new Mock<ICacheHelper>();
+
             _mockOrderService = new Mock<IOrderService>();
-            _ordersController = new OrdersController(_mockOrderService.Object);
+            _ordersController = new OrdersController(_mockOrderService.Object, _mockMemoryCache.Object, _cacheHelper.Object);
         }
 
         [Fact]
