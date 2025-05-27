@@ -4,6 +4,7 @@ using EventApi.Helpers;
 using EventApi.Interfaces;
 using EventApi.Services;
 using FluentAssertions;
+using Microsoft.Extensions.Caching.Memory;
 using Moq;
 using Moq.EntityFrameworkCore;
 
@@ -14,12 +15,14 @@ namespace EventApiTests.Services
         private readonly Mock<IMapHelper> _mapHelperMock;
         private readonly Mock<MyAppContext> _contextMock;
         private readonly EventService _eventService;
+        private readonly Mock<IMemoryCache> _memoryCache;
+        private readonly Mock<ICacheHelper> _cacheHelperMock;
 
         public EventServiceTests()
         {
             _mapHelperMock = new Mock<IMapHelper>();
             _contextMock = new Mock<MyAppContext>();
-            _eventService = new EventService(_mapHelperMock.Object, _contextMock.Object);
+            _eventService = new EventService(_mapHelperMock.Object, _contextMock.Object, _memoryCache.Object, _cacheHelperMock.Object);
         }
 
         [Fact]

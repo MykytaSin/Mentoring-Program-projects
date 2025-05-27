@@ -13,7 +13,6 @@ namespace EventApi.Services
         private readonly IMapHelper _mapHelper;
         private readonly IPaymentService _paymentService;
 
-
         public OrderService(IMapHelper mapHelper, MyAppContext context, IPaymentService paymentService)
         {
             _mapHelper = mapHelper;
@@ -42,26 +41,57 @@ namespace EventApi.Services
 
         public async Task<OrderInfo> AddNewTicketToOrderAsync(Guid cartIdentifier, CartTicketData ticketData)
         {
-            Ticket? ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Eventid == ticketData.EventId && t.Seatid == ticketData.SeatId && t.Offerpriceid == ticketData.PriceId);
-
-            if (ticket is null)
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                throw new NullValueEntitySearchExceprion("Ticket not found");
+                try
+                {
+                    Ticket? ticket = await _context.Tickets
+                        .Include(t => t.Ticketstatus) // Include Ticketstatus to check its name
+                        .FirstOrDefaultAsync(t => t.Eventid == ticketData.EventId && t.Seatid == ticketData.SeatId && t.Offerpriceid == ticketData.PriceId);
+                    if (ticket is null)
+                    {
+                        throw new NullValueEntitySearchExceprion("Ticket not found");
+                    }
+
+                    // Check if the ticket is already booked or sold
+                    if (ticket.Ticketstatus?.Ticketstatusname == Constants.TicketStatusBooked ||
+                        ticket.Ticketstatus?.Ticketstatusname == Constants.TicketStatusSold)
+                    {
+                        throw new InvalidOperationException($"Ticket for Event ID: {ticketData.EventId}, Seat ID: {ticketData.SeatId} is already {ticket.Ticketstatus.Ticketstatusname}.");
+                    }
+
+                    var purchase = await _context.Purchases
+                        .Include(p => p.Tickets)
+                        .FirstOrDefaultAsync(p => p.Purchaseid == cartIdentifier);
+
+                    if (purchase is null)
+                    {
+                        throw new NullValueEntitySearchExceprion("Purchase not found");
+                    }
+
+                    if (purchase.Tickets.Any(t => t.Ticketid == ticket.Ticketid))
+                    {
+
+                        return await GetOrderAsync(cartIdentifier);
+                    }
+
+                    Ticketstatus? pendingStatus = await _context.Ticketstatuses.FirstOrDefaultAsync(ts => ts.Ticketstatusname == Constants.TicketStatusPending);
+                    if (pendingStatus != null)
+                    {
+                        ticket.Ticketstatusid = pendingStatus.Ticketstatusid;
+                    }
+
+                    purchase.Tickets.Add(ticket);
+                    await _context.SaveChangesAsync();
+
+                    return await GetOrderAsync(cartIdentifier);
+                }
+                catch (Exception ex)
+                {
+                    await transaction.RollbackAsync();
+                    throw; 
+                }
             }
-
-            var purchase = await _context.Purchases
-                .Include(p => p.Tickets)
-                .FirstOrDefaultAsync(p => p.Purchaseid == cartIdentifier);
-
-            if (purchase is null)
-            {
-                throw new NullValueEntitySearchExceprion("Purchase not found");
-            }
-
-            purchase.Tickets.Add(ticket);
-            await _context.SaveChangesAsync();
-
-            return await GetOrderAsync(cartIdentifier);
         }
 
         public async Task<OrderInfo> DeletTicketAsync(Guid cartId, int eventId, int seatId)

@@ -3,7 +3,9 @@
     public static class Constants
     {
         public const string PurchaseStatusPending = "Pending";
+        public const string TicketStatusPending = "Pending";
         public const string TicketStatusBooked = "Booked";
+        public const string TicketStatusSold = "Sold";
         public const string TicketStatusAvailable = "Available";
         public const string PaymentStatusCompleted = "Completed";
         public const string PaymentStatusPending = "Pending";
