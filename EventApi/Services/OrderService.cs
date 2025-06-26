@@ -12,12 +12,14 @@ namespace EventApi.Services
         private readonly MyAppContext _context;
         private readonly IMapHelper _mapHelper;
         private readonly IPaymentService _paymentService;
+        private readonly IServiceBusMessageSender _messageSender;
 
-        public OrderService(IMapHelper mapHelper, MyAppContext context, IPaymentService paymentService)
+        public OrderService(IMapHelper mapHelper, MyAppContext context, IPaymentService paymentService, IServiceBusMessageSender serviceBusMessageSender)
         {
             _mapHelper = mapHelper;
             _context = context;
             _paymentService = paymentService;
+            _messageSender = serviceBusMessageSender;
         }
 
 
@@ -130,6 +132,15 @@ namespace EventApi.Services
                 ticket.Ticketstatusid = bookedStatus.Ticketstatusid;
             }
             await _context.SaveChangesAsync();
+
+            var notificationMessage = new NotificationMessage
+            {
+                TrackingId = Guid.NewGuid(),
+                Operation = Constants.TicketBooked,
+                Content = $"Your tickets for event {purchase.Tickets.FirstOrDefault()?.Event.Name} have been successfully booked."
+            };
+
+            await _messageSender.SendMessageAsync<NotificationMessage>(notificationMessage);
 
             return _paymentService.GetPaymentId();
         }

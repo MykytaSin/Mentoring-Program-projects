@@ -27,6 +27,9 @@
         public const string MinimizedEventsCacheKey = "MinimizedEvents";
         public const string SeatsWithStatusAndPriceCacheKey = "SeatsWithStatusAndPrice";
 
+        //Operation Statuses
+        public const string TicketBooked = "Sucess booking";
+
 
     }
 }
